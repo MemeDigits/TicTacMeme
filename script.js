@@ -71,9 +71,4 @@ document.querySelector('#reset').addEventListener('click', function() {
   gameOver = false;
 });
 
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e => {
-  cursor.style.left = (e.pageX - 10) + "px";
-  cursor.style.top = (e.pageY - 10) + "px";
-});
 
