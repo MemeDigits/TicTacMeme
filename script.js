@@ -35,6 +35,9 @@ function checkWin() {
       result.textContent = currentPlayer === '69' ? '69 WINS!' : '420 WINS!';
       gameOver = true;
       document.querySelector('#reset').style.display = 'block';
+
+      
+      
       return;
     }
   }
@@ -66,5 +69,11 @@ document.querySelector('#reset').addEventListener('click', function() {
   document.querySelector('#reset').style.display = 'none';
   currentPlayer = '69';
   gameOver = false;
+});
+
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = (e.pageX - 10) + "px";
+  cursor.style.top = (e.pageY - 10) + "px";
 });
 
