@@ -1,0 +1,26 @@
+table {
+	border-collapse: collapse;
+	margin: 20px auto;
+}
+
+td {
+	border: 2px solid black;
+	width: 100px;
+	height: 100px;
+}
+
+button {
+	font-size: 48px;
+	width: 100%;
+	height: 100%;
+	background: none;
+	border: none;
+}
+
+#winner-select {
+	margin-right: 20px;
+}
+
+button#play-again-button {
+	font-size: 24px;
+}
