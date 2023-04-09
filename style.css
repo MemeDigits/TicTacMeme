@@ -1,5 +1,9 @@
 #header {
-  text-align: center;
+    text-align: center;
+  color: 
+  background: clear
+
+
 }
 
 #game {
@@ -7,12 +11,13 @@
   flex-wrap: wrap;
   width: 300px;
   margin: 0 auto;
+ background-color: ;
 }
 
 .square {
   width: 100px;
   height: 100px;
-  border: 2px solid green;
+  border: 2px solid black;
   box-sizing: border-box;
   font-size: 48px;
   text-align: center;
@@ -25,11 +30,11 @@
 }
 
 .square.69 {
-  color: light blue;
+  color: lightblue;
 }
 
 .square.420 {
-  color: neon green;
+  color: neongreen;
 }
 
 #result {
@@ -39,6 +44,8 @@
 }
 
 #reset {
+  background-color: black;
+  color: white;
   display: none;
   text-align: center;
   font-size: 30px;
@@ -47,3 +54,8 @@
   margin-right: auto;
 
 }
+
+body {
+  background: linear-gradient(to right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF);
+}
+
