@@ -81,16 +81,4 @@ body {
   background: linear-gradient(to right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF);
 }
 
-#cursor {
-  animation: color-change 1s infinite alternate;
-  border: 1px solid black;
-}
-
-@keyframes color-change {
-  0% { background-color: red; }
-  25% { background-color: green; }
-  50% { background-color: blue; }
-  75% { background-color: yellow; }
-  100% { background-color: purple; }
-}
 
