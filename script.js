@@ -1,88 +1,70 @@
-const squares = document.querySelectorAll('.square');
-const result = document.querySelector('#result');
-const resetButton = document.querySelector('#reset');
-
+let squares = document.querySelectorAll('.square');
 let currentPlayer = '69';
-let moves = 0;
-let gameActive = true;
+let gameOver = false;
 
-const winningCombinations = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-];
-
-function handleMove(square) {
-  const index = Array.from(squares).indexOf(square);
-  if (square.getAttribute('data-square') === '') {
-    square.setAttribute('data-square', currentPlayer);
-    square.classList.add(currentPlayer);
-
-    if (currentPlayer === '69') {
-      square.textContent = '69';
-    } else {
-      square.textContent = '420';
-    }
-
-    moves++;
-    checkForWin();
-    currentPlayer = currentPlayer === '69' ? '420' : '69';
+function handleClick(e) {
+  if (gameOver) {
+    return;
   }
+  if (e.target.classList.contains('69') || e.target.classList.contains('420')) {
+    return;
+  }
+  e.target.classList.add(currentPlayer);
+  e.target.textContent = currentPlayer;
+  checkWin();
+  currentPlayer = currentPlayer === '69' ? '420' : '69';
 }
 
-function checkForWin() {
-  for (let i = 0; i < winningCombinations.length; i++) {
-    const [a, b, c] = winningCombinations[i];
-    const squareA = squares[a];
-    const squareB = squares[b];
-    const squareC = squares[c];
-    if (squareA.getAttribute('data-square') !== '' &&
-        squareA.getAttribute('data-square') === squareB.getAttribute('data-square') &&
-        squareA.getAttribute('data-square') === squareC.getAttribute('data-square')) {
-      result.textContent = `${squareA.getAttribute('data-square')} wins!`;
-      gameActive = false;
-      resetButton.style.display = 'block';
-      highlightWinningCombination(squareA, squareB, squareC);
+function checkWin() {
+  let winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < winningCombos.length; i++) {
+    let combo = winningCombos[i];
+    if (squares[combo[0]].classList.contains(currentPlayer) && 
+        squares[combo[1]].classList.contains(currentPlayer) && 
+        squares[combo[2]].classList.contains(currentPlayer)) {
+      let result = document.querySelector('#result');
+      result.textContent = currentPlayer === '69' ? '69 WINS!' : '420 WINS!';
+      gameOver = true;
+      document.querySelector('#reset').style.display = 'block';
       return;
     }
   }
-  if (moves === 9) {
-    result.textContent = "It's a tie!";
-    gameActive = false;
-    resetButton.style.display = 'block';
-  }
-}
-
-function highlightWinningCombination(squareA, squareB, squareC) {
-  squareA.classList.add('winner');
-  squareB.classList.add('winner');
-  squareC.classList.add('winner');
-}
-
-function resetGame() {
+  let fullBoard = true;
   for (let i = 0; i < squares.length; i++) {
-    squares[i].setAttribute('data-square', '');
-    squares[i].textContent = '';
-    squares[i].classList.remove('69', '420', 'winner');
+    if (!squares[i].classList.contains('69') && !squares[i].classList.contains('420')) {
+      fullBoard = false;
+      break;
+    }
   }
-  result.textContent = '';
-  moves = 0;
-  gameActive = true;
-  currentPlayer = '69';
-  resetButton.style.display = 'none';
+  if (fullBoard) {
+    let result = document.querySelector('#result');
+    result.textContent = 'TIE GAME!';
+    gameOver = true;
+    document.querySelector('#reset').style.display = 'block';
+  }
 }
 
-squares.forEach(square => {
-  square.addEventListener('click', () => {
-    if (gameActive) {
-      handleMove(square);
-    }
-  });
+for (let i = 0; i < squares.length; i++) {
+  squares[i].addEventListener('click', handleClick);
+}
+
+document.querySelector('#reset').addEventListener('click', function() {
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].classList.remove('69', '420');
+    squares[i].textContent = '';
+  }
+  document.querySelector('#result').textContent = '';
+  document.querySelector('#reset').style.display = 'none';
+  currentPlayer = '69';
+  gameOver = false;
 });
 
-resetButton.addEventListener('click', resetGame);
